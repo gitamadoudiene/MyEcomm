@@ -1,7 +1,7 @@
 const Product = require('../models/Product');
 
 //Read all products
-const getProducts = async (req, res) => {
+const getProducts = async (_req, res) => {
     try{
         const products = await Product.find();
         res.json(products); 

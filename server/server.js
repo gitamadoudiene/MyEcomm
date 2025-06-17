@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
+const siteSettingsRoutes = require('./routes/siteSettingsRoutes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(express.json()); // Middleware pour parser le JSON dans les requêtes
 
 // Appelle des routes
 app.use('/api/products', productRoutes);
+app.use('/api/settings', siteSettingsRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 // Démarrage du serveur
