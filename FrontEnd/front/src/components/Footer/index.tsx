@@ -1,8 +1,31 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import axios from "axios";
 
 const Footer = () => {
   const year = new Date().getFullYear();
+
+      const [data, setData] = useState({
+        phoneNumber: "",
+        email: "",
+        address: "",
+    });
+
+     useEffect(() => {
+    axios.get("http://localhost:5000/api/settings")
+        .then((res) => {
+        if (res.data) {
+            setData((prev) => ({
+            ...prev,
+            ...res.data // fusionne proprement
+            }));
+        }
+        })
+        .catch((err) => {
+        console.error("Erreur lors de la récupération des paramètres:", err);
+        })
+    }, []);
 
   return (
     <footer className="overflow-hidden">
@@ -11,7 +34,7 @@ const Footer = () => {
         <div className="flex flex-wrap xl:flex-nowrap gap-10 xl:gap-19 xl:justify-between pt-17.5 xl:pt-22.5 pb-10 xl:pb-15">
           <div className="max-w-[330px] w-full">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
-              Help & Support
+              Aide & Support
             </h2>
 
             <ul className="flex flex-col gap-3">
@@ -32,7 +55,7 @@ const Footer = () => {
                     />
                   </svg>
                 </span>
-                685 Market Street,Las Vegas, LA 95820,United States.
+                {data.address || "123 Main Street, Dakar, Senegal"}
               </li>
 
               <li>
@@ -61,7 +84,7 @@ const Footer = () => {
                       fill="#3C50E0"
                     />
                   </svg>
-                  (+099) 532-786-9843
+                  {data.phoneNumber || "(+221) 77 123 45 67"}
                 </a>
               </li>
 
@@ -81,7 +104,7 @@ const Footer = () => {
                       fill="#3C50E0"
                     />
                   </svg>
-                  support@example.com
+                  {data.email || "maboutique@gmail.com"}
                 </a>
               </li>
             </ul>

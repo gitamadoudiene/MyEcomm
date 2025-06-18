@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser, SignOutButton } from "@clerk/nextjs";
 import { ChevronUpIcon } from "@/assets/icons";
 import {
   Dropdown,
@@ -14,12 +15,9 @@ import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
 
 export function UserInfo() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isLoaded } = useUser();
 
-  const USER = {
-    name: "Arame Diene",
-    email: "arame@gmail.com",
-    img: "/images/user/user-31.webp",
-  };
+  if (!isLoaded || !user) return null; // pas encore chargé ou pas connecté
 
   return (
     <Dropdown isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -28,21 +26,19 @@ export function UserInfo() {
 
         <figure className="flex items-center gap-3">
           <Image
-            src={USER.img}
-            className="size-12"
-            alt={`Avatar of ${USER.name}`}
-            role="presentation"
-            width={200}
-            height={200}
+            src={user.imageUrl || "/images/user/default-avatar.png"}
+            alt={`Avatar of ${user.fullName || "Utilisateur"}`}
+            width={48}
+            height={48}
+            className="size-12 object-cover rounded-full"
           />
           <figcaption className="flex items-center gap-1 font-medium text-dark dark:text-dark-6 max-[1024px]:sr-only">
-            <span>{USER.name}</span>
-
+            <span>{user.fullName}</span>
             <ChevronUpIcon
               aria-hidden
               className={cn(
                 "rotate-180 transition-transform",
-                isOpen && "rotate-0",
+                isOpen && "rotate-0"
               )}
               strokeWidth={1.5}
             />
@@ -57,21 +53,14 @@ export function UserInfo() {
         <h2 className="sr-only">informations</h2>
 
         <figure className="flex items-center gap-2.5 px-5 py-3.5">
-          <Image
-            src={USER.img}
-            className="size-12"
-            alt={`Avatar for ${USER.name}`}
-            role="presentation"
-            width={200}
-            height={200}
-          />
-
+          
           <figcaption className="space-y-1 text-base font-medium">
             <div className="mb-2 leading-none text-dark dark:text-white">
-              {USER.name}
+              {user.fullName}
             </div>
-
-            <div className="leading-none text-gray-6">{USER.email}</div>
+            <div className="leading-none text-gray-6">
+              {user.primaryEmailAddress?.emailAddress}
+            </div>
           </figcaption>
         </figure>
 
@@ -84,7 +73,6 @@ export function UserInfo() {
             className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
           >
             <UserIcon />
-
             <span className="mr-auto text-base font-medium">Voir Profile</span>
           </Link>
 
@@ -94,24 +82,22 @@ export function UserInfo() {
             className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
           >
             <SettingsIcon />
-
-            <span className="mr-auto text-base font-medium">
-              Parametrage
-            </span>
+            <span className="mr-auto text-base font-medium">Paramétrage</span>
           </Link>
         </div>
 
         <hr className="border-[#E8E8E8] dark:border-dark-3" />
 
         <div className="p-2 text-base text-[#4B5563] dark:text-dark-6">
-          <button
-            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
-            onClick={() => setIsOpen(false)}
-          >
-            <LogOutIcon />
-
-            <span className="text-base font-medium">Se deconnecter</span>
-          </button>
+          <SignOutButton>
+            <button
+              className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              <LogOutIcon />
+              <span className="text-base font-medium">Se déconnecter</span>
+            </button>
+          </SignOutButton>
         </div>
       </DropdownContent>
     </Dropdown>

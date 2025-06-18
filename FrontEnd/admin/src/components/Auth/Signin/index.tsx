@@ -1,6 +1,7 @@
 import Link from "next/link";
 import GoogleSigninButton from "../GoogleSigninButton";
 import SigninWithPassword from "../SigninWithPassword";
+import { SignIn } from "@clerk/nextjs";
 
 export default function Signin() {
   return (
@@ -20,12 +21,13 @@ export default function Signin() {
       </div>
 
       <div className="mt-6 text-center">
-        <p>
+         <p>
           Don’t have any account?{" "}
           <Link href="/auth/sign-up" className="text-primary">
             Sign Up
           </Link>
-        </p>
+         </p> 
+
       </div>
     </>
   );

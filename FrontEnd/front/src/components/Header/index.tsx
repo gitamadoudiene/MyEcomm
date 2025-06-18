@@ -9,12 +9,16 @@ import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const { openCartModal } = useCartModalContext();
+
+
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
@@ -47,6 +51,26 @@ const Header = () => {
     { label: "Tablet", value: "7" },
   ];
 
+      const [data, setData] = useState({
+        logo: "",
+        phoneNumber: "",
+    });
+
+    useEffect(() => {
+    axios.get("http://localhost:5000/api/settings")
+        .then((res) => {
+        if (res.data) {
+            setData((prev) => ({
+            ...prev,
+            ...res.data // fusionne proprement
+            }));
+        }
+        })
+        .catch((err) => {
+        console.error("Erreur lors de la récupération des paramètres:", err);
+        })
+    }, []);
+
   return (
     <header
       className={`fixed left-0 top-0 w-full z-9999 bg-white transition-all ease-in-out duration-300 ${
@@ -64,7 +88,7 @@ const Header = () => {
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
               <Image
-                src="/images/logo/logo.svg"
+                src={data.logo || "images/logo/logo.svg"}
                 alt="Logo"
                 width={219}
                 height={36}
@@ -148,7 +172,7 @@ const Header = () => {
                   24/7 SUPPORT
                 </span>
                 <p className="font-medium text-custom-sm text-dark">
-                  (+965) 7492-3477
+                  {data.phoneNumber || "+221 77 123 45 67"}
                 </p>
               </div>
             </div>

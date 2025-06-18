@@ -11,7 +11,7 @@ export const NAV_DATA = [
         items: [
           {
             title: "Statistiques",
-            url: "/",
+            url: "/dashboard",
           },
         ],
       },
@@ -21,11 +21,11 @@ export const NAV_DATA = [
         items: [
           {
             title: "Ajouter un produit",
-            url: "/product/addproduct",
+            url: "/dashboard/product/addproduct",
           },
           {
             title: "Liste des produits",
-            url: "/product/listproduct",
+            url: "/dashboard/product/listproduct",
           },
         ],
       },
@@ -36,7 +36,7 @@ export const NAV_DATA = [
         items: [
           {
             title: "Liste des commandes",
-            url: "/order",
+            url: "/dashboard/order",
           },
         ],
       },
@@ -46,63 +46,45 @@ export const NAV_DATA = [
         items: [
           {
             title: "Ajouter Temoignage",
-            url: "/reviews/addreviews",
+            url: "/dashboard/reviews/addreviews",
           },
           {
             title: "Liste des Temoignages",
-            url: "/reviews/listreviews",
+            url: "/dashboard/reviews/listreviews",
           },
         ],
       },
-
-      {
-        title: "Calendar",
-        url: "/calendar",
-        icon: Icons.Calendar,
-        items: [],
+       {
+        title: "Sliders",
+        icon: Icons.SliderHorizontalBroken,
+        items: [
+          {
+            title: "Ajouter un Slider",
+            url: "/dashboard/sliders/addslider",
+          },
+          {
+            title: "Liste des Sliders",
+            url: "/dashboard/sliders/listslider",
+          },
+        ],
       },
       {
         title: "Profile",
-        url: "/profile",
+        url: "/dashboard/profile",
         icon: Icons.User,
         items: [],
-      },
-      {
-        title: "Forms",
-        icon: Icons.Alphabet,
-        items: [
-          {
-            title: "Form Elements",
-            url: "/forms/form-elements",
-          },
-          {
-            title: "Form Layout",
-            url: "/forms/form-layout",
-          },
-        ],
-      },
-      {
-        title: "Tables",
-        url: "/tables",
-        icon: Icons.Table,
-        items: [
-          {
-            title: "Tables",
-            url: "/tables",
-          },
-        ],
-      },
+      },   
       {
         title: "Parametres",
         icon: Icons.OutlineSettings,
         items: [
           {
             title: "Settings",
-            url: "/pages/settings",
+            url: "/dashboard/pages/settings",
           },
           {
             title: "Informations",
-            url: "/pages/informations",
+            url: "/dashboard/pages/informations",
           },
         ],
       },
@@ -117,7 +99,7 @@ export const NAV_DATA = [
         items: [
           {
             title: "Basic Chart",
-            url: "/charts/basic-chart",
+            url: "/dashboard/charts/basic-chart",
           },
         ],
       },
@@ -127,16 +109,16 @@ export const NAV_DATA = [
         items: [
           {
             title: "Alerts",
-            url: "/ui-elements/alerts",
+            url: "/dashboard/ui-elements/alerts",
           },
           {
             title: "Buttons",
-            url: "/ui-elements/buttons",
+            url: "/dashboard/ui-elements/buttons",
           },
         ],
       },
       {
-        title: "Authentication",
+        title: "Se Deconnecter",
         icon: Icons.Authentication,
         items: [
           {
