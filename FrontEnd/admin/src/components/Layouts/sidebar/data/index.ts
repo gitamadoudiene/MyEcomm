@@ -59,7 +59,7 @@ export const NAV_DATA = [
         icon: Icons.SliderHorizontalBroken,
         items: [
           {
-            title: "Ajouter un Slider",
+            title: "Modifier un Slider",
             url: "/dashboard/sliders/addslider",
           },
           {
